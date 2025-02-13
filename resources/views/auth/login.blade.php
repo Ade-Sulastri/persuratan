@@ -28,7 +28,7 @@
 
             <div>
                 <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                <input type="password" id="password" name="password"
+                <input type="password" id="password" name="password" minlength="8"
                     class="mt-1 w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter your password" required>
             </div>

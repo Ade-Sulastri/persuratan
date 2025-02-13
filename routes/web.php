@@ -14,29 +14,31 @@ use App\Http\Controllers\supervisor\TambahSuratController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [UserController::class, 'home'])->name('home');
+Route::middleware('guest')->group(function () {
+  Route::get('/registrasi', [AuthController::class, 'showRegistrasi'])->name('showRegistrasi');
+  Route::post('/registrasi/submit', [AuthController::class, 'registrasi'])->name('registrasi');
 
-Route::get('/registrasi', [AuthController::class, 'showRegistrasi'])->name('showRegistrasi');
-Route::post('/registrasi/submit', [AuthController::class, 'registrasi'])->name('registrasi');
+  Route::get('/login', [AuthController::class, 'showLogin'])->name('showLogin');
+  Route::post('/login/submit', [AuthController::class, 'login'])->name('login');
+});
 
-Route::get('/login', [AuthController::class, 'showLogin'])->name('showLogin');
-Route::post('/login/submit', [AuthController::class, 'login'])->name('login');
+Route::middleware('auth')->group(function () {
+  Route::get('/data-surat', [SuratMasukController::class, 'dataSurat'])->name('dataSurat');
 
+  Route::get('/', [UserController::class, 'home'])->name('home');
+  // SUPERVISOR
+  Route::get('/supervisor', [DashboardController::class, 'dashbordSupervisor'])->name('dashbordSupervisor');
 
-Route::get('/data-surat', [SuratMasukController::class, 'dataSurat'])->name('dataSurat');
+  // tambah surat
+  Route::get('/tambah-surat', [TambahSuratController::class, 'tambahSurat'])->name('tambahSurat');
+  Route::post('/tambah-surat-submit', [TambahSuratController::class, 'submitSurat'])->name('submitSurat');
 
+  // surat masuk
+  Route::get('/surat-masuk-supervisor', [SuratMasukController::class, 'suratMasukSupervisor'])->name('suratMasukSupervisor');
 
-// SUPERVISOR
-Route::get('/supervisor', [DashboardController::class, 'dashbordSupervisor'])->name('dashbordSupervisor');
+  // surat keluar
+  Route::get('/surat-keluar-supervisor', [SuratKeluarController::class, 'suratKeluarSupervisor'])->name('suratKeluarSupervisor');
 
-// tambah surat
-Route::get('/tambah-surat', [TambahSuratController::class, 'tambahSurat'])->name('tambahSurat');
-
-// surat masuk
-Route::get('/surat-masuk-supervisor', [SuratMasukController::class, 'suratMasukSupervisor'])->name('suratMasukSupervisor');
-
-// surat keluar
-Route::get('/surat-keluar-supervisor', [SuratKeluarController::class, 'suratKeluarSupervisor'])->name('suratKeluarSupervisor');
-
-// management user
-Route::get('/management-user', [ManagementUserController::class, 'managementUser'])->name('managementUser');
+  // management user
+  Route::get('/management-user', [ManagementUserController::class, 'managementUser'])->name('managementUser');
+});

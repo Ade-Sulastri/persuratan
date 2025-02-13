@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Surat extends Model
 {
@@ -16,4 +17,8 @@ class Surat extends Model
     protected $fillable = [
         'no_surat', 'tanggal_surat', 'perihal', 'status', 'nip_user'
     ];
+
+    function user(): BelongsTo {
+        return $this->belongsTo(User::class);
+    }
 }
