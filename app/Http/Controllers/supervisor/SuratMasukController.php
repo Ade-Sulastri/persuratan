@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\supervisor;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\Surat;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class SuratMasukController extends Controller
 {
     function suratMasukSupervisor() {
-        return view('components.supervisor.menu.surat-masuk');
+        $user = User::all();
+        $dataSurat = Surat::all();
+       
+        return view('components.supervisor.menu.surat-masuk', compact('user', 'dataSurat'));
     }
 }

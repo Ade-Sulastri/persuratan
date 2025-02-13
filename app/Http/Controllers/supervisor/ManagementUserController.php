@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\supervisor;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ManagementUserController extends Controller
 {
     function managementUser() {
-        return view('components.supervisor.menu.management-user');
+        $dataUser = User::all();
+        return view('components.supervisor.menu.management-user', compact('dataUser'));
     }
 }
