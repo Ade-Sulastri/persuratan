@@ -17,11 +17,11 @@
             </div>
         @endif
 
-        <form action="{{ route('login.submit') }}" method="POST" class="space-y-4">
+        <form action="{{ route('submitLogin') }}" method="POST" class="space-y-4">
             @csrf
             <div class="relative">
                 <label for="nip" class="block text-sm font-medium text-gray-700">Nip</label>
-                <input type="text" id="nip" name="nip"  minlength="18"
+                <input type="text" id="nip" name="nip"  minlength="18" maxlength="18"
                     class="mt-1 w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter your Nip" required>
             </div>

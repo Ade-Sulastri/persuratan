@@ -18,16 +18,15 @@ class TambahSuratController extends Controller
 
     function submitSurat(Request $request)
     {
-        $validasiData = Validator::make(
-            $request->all(),
-            [
-                'no_surat' => 'required|string|max:255',
-                'tanggal_surat' => 'required|data|date_format:Y-m-d',
-                'perihal' => 'required|string|max:255',
-                'file' => 'required|string|max:255',
-                'nip' => Auth::user()->nip_user,
-            ]
-        );
+        // $validasiData = Validator::make(
+        //     $request->all(),
+        //     [
+        //         'no_surat' => 'required|string|max:255',
+        //         'tanggal_surat' => 'required|data|date_format:Y-m-d',
+        //         'perihal' => 'required|string|max:255',
+        //         'file' => 'required|string|max:255',
+        //     ]
+        // );
 
         // if ($validasiData->fails()) {
         //     return redirect()->back()->withErrors($validasiData)->withInput();
@@ -38,6 +37,10 @@ class TambahSuratController extends Controller
         $surat->tanggal_surat = $request->tanggal_surat;
         $surat->perihal = $request->perihal;
         $surat->file = $request->file;
+        // dd($surat);
+        // $surat->nip_user = Auth::user()->nip;
+
+
         $surat->save();
 
         return redirect()->route('suratMasukSupervisor')->with('success', 'Data berhasil ditambahkan');
