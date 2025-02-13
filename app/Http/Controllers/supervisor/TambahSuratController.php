@@ -25,7 +25,7 @@ class TambahSuratController extends Controller
                 'tanggal_surat' => 'required|data|date_format:Y-m-d',
                 'perihal' => 'required|string|max:255',
                 'file' => 'required|string|max:255',
-                // 'nip' => Auth::user()->nip_user,
+                'nip' => Auth::user()->nip_user,
             ]
         );
 

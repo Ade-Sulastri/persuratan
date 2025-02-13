@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('username');
             $table->string('email')->unique();
             $table->string('password');
-            $table->dateTime('tanggal_aktif');
-            $table->dateTime('tanggal_nonaktif');
-            $table->char('status');
+            $table->dateTime('tanggal_aktif')->nullable();
+            $table->dateTime('tanggal_nonaktif')->nullable();
+            $table->char('status')->nullable();
             $table->integer('kode_satker');
             $table->timestamps();
         });

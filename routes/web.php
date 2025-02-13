@@ -19,13 +19,14 @@ Route::middleware('guest')->group(function () {
   Route::post('/registrasi/submit', [AuthController::class, 'registrasi'])->name('registrasi');
 
   Route::get('/login', [AuthController::class, 'showLogin'])->name('showLogin');
-  Route::post('/login/submit', [AuthController::class, 'login'])->name('login');
+  Route::post('/login/submit', [AuthController::class, 'login'])->name('login.submit');
 });
 
 Route::middleware('auth')->group(function () {
   Route::get('/data-surat', [SuratMasukController::class, 'dataSurat'])->name('dataSurat');
 
   Route::get('/', [UserController::class, 'home'])->name('home');
+  
   // SUPERVISOR
   Route::get('/supervisor', [DashboardController::class, 'dashbordSupervisor'])->name('dashbordSupervisor');
 

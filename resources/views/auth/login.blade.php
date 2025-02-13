@@ -17,7 +17,7 @@
             </div>
         @endif
 
-        <form action="{{ route('login') }}" method="POST" class="space-y-4">
+        <form action="{{ route('login.submit') }}" method="POST" class="space-y-4">
             @csrf
             <div class="relative">
                 <label for="nip" class="block text-sm font-medium text-gray-700">Nip</label>
