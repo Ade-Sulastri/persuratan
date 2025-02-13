@@ -30,7 +30,7 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    function login(Request $request) {
+    function submitLogin(Request $request) {
         $data = $request->only('nip', 'password');
         if(Auth::attempt($data)) {
             $request->session()->regenerate();
@@ -40,5 +40,11 @@ class AuthController extends Controller
         } else {
             return redirect()->back()->with('error', 'Nip atau Password salah');
         }
+    }
+
+    function logout() {
+        Auth::logout();
+
+        return redirect()->route('showLogin');
     }
 }

@@ -19,10 +19,10 @@ Route::middleware('guest')->group(function () {
   Route::post('/registrasi/submit', [AuthController::class, 'registrasi'])->name('registrasi');
 
   Route::get('/login', [AuthController::class, 'showLogin'])->name('showLogin');
-  Route::post('/login/submit', [AuthController::class, 'login'])->name('login.submit');
+  Route::post('/login/submit', [AuthController::class, 'submitLogin'])->name('submitLogin');
 });
 
-Route::middleware('auth')->group(function () {
+// Route::middleware(['isAuth'])->group(function () {
   Route::get('/data-surat', [SuratMasukController::class, 'dataSurat'])->name('dataSurat');
 
   Route::get('/', [UserController::class, 'home'])->name('home');
@@ -42,4 +42,7 @@ Route::middleware('auth')->group(function () {
 
   // management user
   Route::get('/management-user', [ManagementUserController::class, 'managementUser'])->name('managementUser');
-});
+
+  // LOGOUT
+  Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+// });

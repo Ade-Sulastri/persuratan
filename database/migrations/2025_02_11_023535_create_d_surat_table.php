@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('no_surat');
             $table->dateTime('tanggal_surat');
             $table->string('perihal');
-            $table->char('status');
+            $table->char('status')->nullable();
             $table->string('file');
-            $table->bigInteger('nip_user');
+            $table->bigInteger('nip_user')->nullable();
             $table->foreign('nip_user')->references('nip')->on('t_user')->onDelete('cascade');
             $table->timestamps();
         });
