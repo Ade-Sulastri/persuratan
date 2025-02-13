@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('perihal');
             $table->char('status');
             $table->string('file');
-            $table->foreignId('nip_user')->references('nip')->on('t_user');
+            $table->bigInteger('nip_user');
+            $table->foreign('nip_user')->references('nip')->on('t_user')->onDelete('cascade');
             $table->timestamps();
         });
     }
