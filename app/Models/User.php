@@ -34,6 +34,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function getAuthIdentifierName()
+    {
+        return 'nip'; // Menggunakan nip sebagai identifier
+    }
+
     /**
      * Get the attributes that should be cast.
      *

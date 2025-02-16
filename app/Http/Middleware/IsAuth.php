@@ -16,9 +16,10 @@ class IsAuth
      */
     public function handle(Request $request, Closure $next): Response
     {   
-        if(!Auth::user()) {
-            return redirect('/login');
+        if (!Auth::check()) {
+            return redirect("/login");
         }
+
         return $next($request);
     }
 }

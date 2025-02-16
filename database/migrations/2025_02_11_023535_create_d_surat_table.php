@@ -17,7 +17,8 @@ return new class extends Migration
             $table->dateTime('tanggal_surat');
             $table->string('perihal');
             $table->char('status')->nullable();
-            $table->string('file');
+            $table->string('original_file_name');
+            $table->string('generated_file_name');
             $table->bigInteger('nip_user')->nullable();
             $table->foreign('nip_user')->references('nip')->on('t_user')->onDelete('cascade');
             $table->timestamps();

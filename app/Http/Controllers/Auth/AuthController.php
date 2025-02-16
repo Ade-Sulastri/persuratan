@@ -32,6 +32,7 @@ class AuthController extends Controller
 
     function submitLogin(Request $request) {
         $data = $request->only('nip', 'password');
+       
         if(Auth::attempt($data)) {
             $request->session()->regenerate();
 

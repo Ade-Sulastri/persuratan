@@ -17,7 +17,7 @@
                         <th data-priority="3">No Surat</th>
                         <th data-priority="4">Tanggal Surat</th>
                         <th data-priority="5">Perihal</th>
-                        <th data-priority="6">Perihal</th>
+                        <th data-priority="6">File</th>
                         <th data-priority="7">Tanggal Input Data</th>
                         <th data-priority="8">Aksi</th>
                     </tr>
@@ -28,26 +28,29 @@
                             <td>{{ $loop->iteration }}.</td>
                             <td>{{ $surat->nip_user }}</td>
                             <td>{{ $surat->no_surat }}</td>
-                            <td>{{ $surat->tanggal_surat }}</td>
+                            <td>{{ \Carbon\Carbon::parse($surat->tanggal_surat)->format('m/d/Y') }}</td>
                             <td>{{ $surat->perihal }}</td>
-                            <td>{{ $surat->file }}</td>
-                            <td>{{ $surat->created_at }}</td>
+                            <td>{{ $surat->original_file_name }}</td>
+                            <td>{{ \Carbon\Carbon::parse($surat->created_at)->format('m/d/Y') }}</td>
                             <td class="flex justify-center">
                                 <div class="flex space-x-2">
                                     <!-- Hapus Button -->
-                                    <button
-                                        class="p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition duration-300">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
-                                            viewBox="0 0 24 24">
-                                            <g fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="1.5">
-                                                <path
-                                                    d="M5.47 6.015v12.514a2.72 2.72 0 0 0 2.721 2.721h7.618a2.72 2.72 0 0 0 2.72-2.72V6.014m-15.235.001h17.412" />
-                                                <path
-                                                    d="M8.735 6.015V4.382a1.63 1.63 0 0 1 1.633-1.632h3.264a1.63 1.63 0 0 1 1.633 1.632v1.633M9.824 16.992v-5.439m4.353 5.439v-5.439" />
-                                            </g>
-                                        </svg>
-                                    </button>
+                                    <form action="{{ route('deleteSurat', $surat->id) }}" method="POST">
+                                        @csrf
+                                        <button
+                                            class="p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition duration-300">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+                                                viewBox="0 0 24 24">
+                                                <g fill="none" stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="1.5">
+                                                    <path
+                                                        d="M5.47 6.015v12.514a2.72 2.72 0 0 0 2.721 2.721h7.618a2.72 2.72 0 0 0 2.72-2.72V6.014m-15.235.001h17.412" />
+                                                    <path
+                                                        d="M8.735 6.015V4.382a1.63 1.63 0 0 1 1.633-1.632h3.264a1.63 1.63 0 0 1 1.633 1.632v1.633M9.824 16.992v-5.439m4.353 5.439v-5.439" />
+                                                </g>
+                                            </svg>
+                                        </button>
+                                    </form>
 
                                     <!-- Edit Button -->
                                     <button
@@ -62,29 +65,26 @@
                                     </button>
 
                                     <!-- Download Button -->
-                                    <button
-                                        class="p-2 rounded-lg bg-green-500 hover:bg-green-600 text-white transition duration-300">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M12 15v-9" />
-                                            <path d="M9 12l3 3l3-3" />
-                                            <path d="M5 20h14" />
-                                        </svg>
-                                    </button>
+                                    <a href="{{ route('downloadSurat', $surat->generated_file_name) }}">
+                                        <button
+                                            class="p-2 rounded-lg bg-green-500 hover:bg-green-600 text-white transition duration-300">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M12 15v-9" />
+                                                <path d="M9 12l3 3l3-3" />
+                                                <path d="M5 20h14" />
+                                            </svg>
+                                        </button>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
-
             </table>
-
-
         </div>
         <!--/Card-->
-
-
     </div>
     <!--/container-->
 

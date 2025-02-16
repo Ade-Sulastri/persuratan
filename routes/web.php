@@ -22,7 +22,7 @@ Route::middleware('guest')->group(function () {
   Route::post('/login/submit', [AuthController::class, 'submitLogin'])->name('submitLogin');
 });
 
-// Route::middleware(['isAuth'])->group(function () {
+Route::middleware(['isAuth'])->group(function () {
   Route::get('/data-surat', [SuratMasukController::class, 'dataSurat'])->name('dataSurat');
 
   Route::get('/', [UserController::class, 'home'])->name('home');
@@ -36,6 +36,8 @@ Route::middleware('guest')->group(function () {
 
   // surat masuk
   Route::get('/surat-masuk-supervisor', [SuratMasukController::class, 'suratMasukSupervisor'])->name('suratMasukSupervisor');
+  Route::post('/delete-surat/{id}', [SuratMasukController::class, 'deleteSurat'])->name('deleteSurat');
+  Route::get('/downloadSurat/{filename}', [SuratMasukController::class, 'downloadSurat'])->name('downloadSurat');
 
   // surat keluar
   Route::get('/surat-keluar-supervisor', [SuratKeluarController::class, 'suratKeluarSupervisor'])->name('suratKeluarSupervisor');
@@ -45,4 +47,4 @@ Route::middleware('guest')->group(function () {
 
   // LOGOUT
   Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-// });
+});

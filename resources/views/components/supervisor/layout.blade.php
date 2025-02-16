@@ -20,7 +20,13 @@
 
 <body class="flex">
     <x-supervisor.sidebar/>
+    @if (session('success'))
+        <x-alert.success :message="session('success')"/>
+    @endif
 
+    @if (session('confirm'))
+        <x-alert.confirm :message="session('confirm')"/>
+    @endif
     <!-- Main Content -->
     <div class="flex-1">
         <x-supervisor.navbar/>
