@@ -21,7 +21,7 @@
                                         </div>
                                     </div>
                                     <div class="mt-4">
-                                        <h3 class="text-3xl font-bold text-gray-800">4.510</h3>
+                                        <h3 class="text-3xl font-bold text-gray-800">{{ count($totalSurat) }}</h3>
                                         <p class="mt-2 text-gray-600">Dokumen Masuk</p>
                                     </div>
                                 </div>
@@ -57,8 +57,8 @@
                                         </div>
                                     </div>
                                     <div class="mt-4">
-                                        <h3 class="text-3xl font-bold text-gray-800">4.510</h3>
-                                        <p class="mt-2 text-gray-600">Pengguna Online</p>
+                                        <h3 class="text-3xl font-bold text-gray-800">{{ count($users) }}</h3>
+                                        <p class="mt-2 text-gray-600">Pengguna Terdaftar</p>
                                     </div>
                                 </div>
                             </div>

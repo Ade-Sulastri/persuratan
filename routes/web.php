@@ -28,7 +28,7 @@ Route::middleware(['isAuth'])->group(function () {
   Route::get('/', [UserController::class, 'home'])->name('home');
   
   // SUPERVISOR
-  Route::get('/supervisor', [DashboardController::class, 'dashbordSupervisor'])->name('dashbordSupervisor');
+  Route::get('/supervisor', [DashboardController::class, 'dashboardSupervisor'])->name('dashboardSupervisor');
 
   // tambah surat
   Route::get('/tambah-surat', [TambahSuratController::class, 'tambahSurat'])->name('tambahSurat');

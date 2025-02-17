@@ -36,7 +36,7 @@ class AuthController extends Controller
         if(Auth::attempt($data)) {
             $request->session()->regenerate();
 
-            return redirect()->route('dashbordSupervisor');
+            return redirect()->route('dashboardSupervisor');
 
         } else {
             return redirect()->back()->with('error', 'Nip atau Password salah');

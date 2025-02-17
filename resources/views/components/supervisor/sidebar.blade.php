@@ -3,7 +3,7 @@
     <h2 class="text-lg font-bold">Menu</h2>
     <ul class="mt-5">
         <li class="mb-3">
-            <a href="{{ route('dashbordSupervisor') }}" class="block p-2 hover:bg-white hover:text-black rounded">
+            <a href="{{ route('dashboardSupervisor') }}" class="block p-2 hover:bg-white hover:text-black rounded">
                 <span class="flex items-center gap-x-2">
                     Dashboard
                 </span>
