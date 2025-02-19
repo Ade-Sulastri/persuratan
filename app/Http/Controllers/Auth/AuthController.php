@@ -17,6 +17,16 @@ class AuthController extends Controller
 
     function registrasi(Request $request)
     {
+        // Validasi input dengan password confirmation
+        $request->validate([
+            'nip' => 'required|unique:t_user,nip|min:18|max:18',
+            'username' => 'required|string|max:255',
+            'email' => 'required|email|unique:t_user,email',
+            'kode_satker' => 'required|string|max:255',
+            'password' => 'required|min:8|confirmed', 
+        ]);
+
+        // Simpan data user baru
         $user = new User();
         $user->nip = $request->nip;
         $user->username = $request->username;
@@ -25,8 +35,9 @@ class AuthController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return redirect()->route('showLogin')->with('success', 'Registrasi Berhasil');
+        return redirect()->route('showLogin')->with('success', 'Registrasi berhasil! Silakan login.');
     }
+
 
     function showLogin()
     {
