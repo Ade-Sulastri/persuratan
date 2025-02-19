@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="id">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,17 +12,21 @@
     <div class="w-full max-w-sm bg-white p-6 rounded-lg shadow-lg">
         <h1 class="text-2xl font-bold text-center mb-4 text-gray-900">Login</h1>
 
-        @if(session('error'))
+        @if (session('error'))
             <div class="bg-red-100 text-red-700 p-2 rounded-lg">
                 {{ session('error') }}
             </div>
         @endif
-
+        @if (session('success'))
+            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">
+                <p>{{ session('success') }}</p>
+            </div>
+        @endif
         <form action="{{ route('submitLogin') }}" method="POST" class="space-y-4">
             @csrf
             <div class="relative">
                 <label for="nip" class="block text-sm font-medium text-gray-700">Nip</label>
-                <input type="text" id="nip" name="nip"  
+                <input type="text" id="nip" name="nip"
                     class="mt-1 w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter your Nip" required>
             </div>
@@ -38,8 +43,10 @@
         </form>
 
         <div class="mt-4 text-center text-sm text-gray-600">
-            <p>Don't have an account? <a href="{{ route('showRegistrasi') }}" class="text-blue-500 hover:underline">Register here</a></p>
+            <p>Belum punya akun? <a href="{{ route('showRegistrasi') }}"
+                    class="text-blue-500 hover:underline">Registrasi Disini</a></p>
         </div>
     </div>
 </body>
+
 </html>
