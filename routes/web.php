@@ -1,34 +1,52 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\UserController;
 
 // Super Admin
 use App\Http\Controllers\super_admin\SuperAdminController;
 
 // supervisor
 use App\Http\Controllers\supervisor\DashboardController;
-use App\Http\Controllers\supervisor\ManagementUserController;
-use App\Http\Controllers\supervisor\SuratKeluarController;
 use App\Http\Controllers\supervisor\SuratMasukController;
-use App\Http\Controllers\supervisor\TambahSuratController;
+use App\Http\Controllers\supervisor\SuratKeluarController;
+use App\Http\Controllers\supervisor\ManagementUserController;
 
 // operator
 use App\Http\Controllers\operator\DashboardOperatorController;
+use App\Http\Controllers\operator\SuratOperatorController;
+use App\Http\Controllers\operator\TambahSuratController;
 
-use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-  Route::get('/registrasi', [AuthController::class, 'showRegistrasi'])->name('showRegistrasi');
-  Route::post('/registrasi/submit', [AuthController::class, 'registrasi'])->name('registrasi');
+Route::get('/registrasi', [AuthController::class, 'showRegistrasi'])->name('showRegistrasi');
+Route::post('/registrasi/submit', [AuthController::class, 'registrasi'])->name('registrasi');
 
-  Route::get('/login', [AuthController::class, 'showLogin'])->name('showLogin');
-  Route::post('/login/submit', [AuthController::class, 'submitLogin'])->name('submitLogin');
+Route::get('/', [AuthController::class, 'showLogin'])->name('showLogin');
+Route::post('/login/submit', [AuthController::class, 'submitLogin'])->name('submitLogin');
 });
 
 Route::middleware(['isAuth'])->group(function () {
   // OPERATOR
   Route::get('/dashboard-operator', [DashboardOperatorController::class, 'dashboardOperator'])->name('dashboardOperator');
+
+  // tambah surat
+  Route::get('/tambah-surat', [TambahSuratController::class, 'tambahSurat'])->name('tambahSurat');
+  Route::post('/tambah-surat-submit', [TambahSuratController::class, 'submitSurat'])->name('submitSurat');
+
+  // surat masuk operator
+  Route::get('/surat-masuk-operator', [SuratOperatorController::class, 'suratMasukOperator'])->name('suratMasukOperator');
+
+  // surat keluar operator
+  Route::get('/surat-keluar-operator', [SuratOperatorController::class, 'suratKeluarOperator'])->name('suratKeluarOperator');
+
+  // download surat operator
+  Route::get('/download-surat/{filename}', [SuratOperatorController::class, 'downloadSuratOperator'])->name('downloadSuratOperator');
+
+  // delete surat operator
+  Route::post('/delete-surat-operator/{id}', [SuratOperatorController::class, 'deleteSuratOperator'])->name('deleteSuratOperator');
 });
 
 
@@ -40,13 +58,11 @@ Route::middleware(['admin'])->group(function () {
   // SUPERVISOR
   Route::get('/supervisor', [DashboardController::class, 'dashboardSupervisor'])->name('dashboardSupervisor');
 
-  // tambah surat
-  Route::get('/tambah-surat', [TambahSuratController::class, 'tambahSurat'])->name('tambahSurat');
-  Route::post('/tambah-surat-submit', [TambahSuratController::class, 'submitSurat'])->name('submitSurat');
-
   // surat masuk
   Route::get('/surat-masuk-supervisor', [SuratMasukController::class, 'suratMasukSupervisor'])->name('suratMasukSupervisor');
+
   Route::post('/delete-surat/{id}', [SuratMasukController::class, 'deleteSurat'])->name('deleteSurat');
+
   Route::get('/downloadSurat/{filename}', [SuratMasukController::class, 'downloadSurat'])->name('downloadSurat');
 
   // surat keluar

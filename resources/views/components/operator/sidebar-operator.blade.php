@@ -17,14 +17,14 @@
             </a>
         </li>
         <li class="mb-3">
-            <a href="{{ route('suratMasukSupervisor') }}" class="block p-2 hover:bg-white hover:text-black rounded">
+            <a href="{{ route('suratMasukOperator') }}" class="block p-2 hover:bg-white hover:text-black rounded">
                 <span class="flex items-center gap-x-2">
                     Surat Masuk
                 </span>
             </a>
         </li>
         <li class="mb-3">
-            <a href="{{ route('suratKeluarSupervisor') }}" class="block p-2 hover:bg-white hover:text-black rounded">
+            <a href="{{ route('suratKeluarOperator') }}" class="block p-2 hover:bg-white hover:text-black rounded">
                 Surat Keluar
                 </span>
             </a>

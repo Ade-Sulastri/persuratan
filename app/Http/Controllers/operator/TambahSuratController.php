@@ -1,20 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\supervisor;
+namespace App\Http\Controllers\operator;
 
 use App\Models\Surat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use App\Http\Middleware\IsAuth;
 
 class TambahSuratController extends Controller
 {
     function tambahSurat()
     {
         $user = Auth::user();
-        return view('components.supervisor.menu.tambah-surat');
+        return view('components.operator.menu.tambah-surat');
     }
 
     function submitSurat(Request $request)
@@ -24,6 +22,7 @@ class TambahSuratController extends Controller
             'no_surat' => 'required|string',
             'tanggal_surat' => 'required|date',
             'perihal' => 'required|string',
+            'status' => 'required|alpha',
         ]);
 
         // Menyimpan file
@@ -35,9 +34,10 @@ class TambahSuratController extends Controller
         $surat->no_surat = $request->no_surat;
         $surat->tanggal_surat = $request->tanggal_surat;
         $surat->perihal = $request->perihal;
+        $surat->status = $request->status;
         $surat->nip_user = Auth::user()->nip;
-        $surat->original_file_name = $file->getClientOriginalName(); 
-        $surat->generated_file_name = $fileName; 
+        $surat->original_file_name = $file->getClientOriginalName();
+        $surat->generated_file_name = $fileName;
         $surat->save();
 
         return redirect()->route('tambahSurat')->with('success', 'Data berhasil ditambahkan');

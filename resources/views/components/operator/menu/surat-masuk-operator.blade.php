@@ -35,7 +35,7 @@
                             <td class="flex justify-center">
                                 <div class="flex space-x-2">
                                     <!-- Hapus Button -->
-                                    <form action="{{ route('deleteSurat', $surat->id) }}" method="POST">
+                                    <form action="{{ route('deleteSuratOperator', $surat->id) }}" method="POST">
                                         @csrf
                                         <button
                                             class="p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition duration-300">
@@ -65,7 +65,7 @@
                                     </button>
 
                                     <!-- Download Button -->
-                                    <a href="{{ route('downloadSurat', $surat->generated_file_name) }}">
+                                    <a href="{{ route('downloadSuratOperator', $surat->generated_file_name) }}">
                                         <button
                                             class="p-2 rounded-lg bg-green-500 hover:bg-green-600 text-white transition duration-300">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"

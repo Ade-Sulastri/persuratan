@@ -17,7 +17,7 @@ class SuperAdmin
     public function handle(Request $request, Closure $next): Response
     {
 
-        if (Auth::check() && Auth::user()->role === 'S') {
+        if (Auth::user()->role === 'S') {
             return $next($request);
         }
 

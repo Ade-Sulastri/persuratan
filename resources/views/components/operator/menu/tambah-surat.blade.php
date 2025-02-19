@@ -33,6 +33,13 @@
                                             placeholder="Masukkan Perihal" />
                                     </div>
 
+                                    <div class="col">
+                                        <label for="status">Status Surat</label>
+                                        <input type="text" name="status" id="status"
+                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value=""
+                                            placeholder="Masukkan Status Surat" />
+                                    </div>
+
                                     <div class="col mt-3">
                                         <input type="file" name="file" id="file" value="file" />
                                     </div>

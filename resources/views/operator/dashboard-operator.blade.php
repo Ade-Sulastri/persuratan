@@ -22,7 +22,7 @@
                                     </div>
                                     <div class="mt-4">
                                         <p class="text-3xl font-bold text-gray-800">
-                                            {{-- {{ $totalSurat->count() ?? 0 }} --}}
+                                            {{ $suratMasuk->count() ?? 0 }}
                                         </p>
                                         <p class="mt-2 text-gray-600">Dokumen Masuk</p>
                                     </div>
@@ -41,7 +41,7 @@
                                         </div>
                                     </div>
                                     <div class="mt-4">
-                                        <h3 class="text-3xl font-bold text-gray-800">4.510</h3>
+                                        <h3 class="text-3xl font-bold text-gray-800">{{ $suratKeluar->count() ?? 0 }}</h3>
                                         <p class="mt-2 text-gray-600">Dokumen Keluar</p>
                                     </div>
                                 </div>
