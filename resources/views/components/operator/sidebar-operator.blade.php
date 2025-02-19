@@ -3,9 +3,16 @@
     <h2 class="text-lg font-bold">Menu</h2>
     <ul class="mt-5">
         <li class="mb-3">
-            <a href="{{ route('dashboardSupervisor') }}" class="block p-2 hover:bg-white hover:text-black rounded">
+            <a href="{{ route('dashboardOperator') }}" class="block p-2 hover:bg-white hover:text-black rounded">
                 <span class="flex items-center gap-x-2">
                     Dashboard
+                </span>
+            </a>
+        </li>
+        <li class="mb-3">
+            <a href="{{ route('tambahSurat') }}" class="block p-2 hover:bg-white hover:text-black rounded">
+                <span class="flex items-center gap-x-2">
+                    Tambah Surat
                 </span>
             </a>
         </li>
@@ -19,13 +26,6 @@
         <li class="mb-3">
             <a href="{{ route('suratKeluarSupervisor') }}" class="block p-2 hover:bg-white hover:text-black rounded">
                 Surat Keluar
-                </span>
-            </a>
-        </li>
-        <li class="mb-3">
-            <a href="{{ route('managementUser') }}" class="block p-2 hover:bg-white hover:text-black rounded">
-                <span class="flex items-center gap-x-2">
-                  Management User
                 </span>
             </a>
         </li>

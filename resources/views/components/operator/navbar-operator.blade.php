@@ -3,7 +3,7 @@
     <button id="menu-toggle" class="md:hidden">☰</button>
     <div></div>
     <div class="flex gap-x-5 items-center">
-        <p>Supervisor</p>
+        <p>Operator</p>
         <form action="{{ route('logout') }}" method="POST">
             @csrf
             <button class="btn border px-5 py-2 rounded-lg bg-[#2A3335] text-white">Logout</button>

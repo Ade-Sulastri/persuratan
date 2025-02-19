@@ -2,15 +2,19 @@
 
 use App\Http\Controllers\auth\AuthController;
 
+// Super Admin
+use App\Http\Controllers\super_admin\SuperAdminController;
+
 // supervisor
 use App\Http\Controllers\supervisor\DashboardController;
 use App\Http\Controllers\supervisor\ManagementUserController;
 use App\Http\Controllers\supervisor\SuratKeluarController;
 use App\Http\Controllers\supervisor\SuratMasukController;
-
-
-// use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\supervisor\TambahSuratController;
+
+// operator
+use App\Http\Controllers\operator\DashboardOperatorController;
+
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,10 +27,16 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware(['isAuth'])->group(function () {
-  Route::get('/data-surat', [SuratMasukController::class, 'dataSurat'])->name('dataSurat');
+  // OPERATOR
+  Route::get('/dashboard-operator', [DashboardOperatorController::class, 'dashboardOperator'])->name('dashboardOperator');
+});
 
-  Route::get('/', [UserController::class, 'home'])->name('home');
-  
+
+// LOGOUT
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+Route::middleware(['admin'])->group(function () {
   // SUPERVISOR
   Route::get('/supervisor', [DashboardController::class, 'dashboardSupervisor'])->name('dashboardSupervisor');
 
@@ -44,7 +54,9 @@ Route::middleware(['isAuth'])->group(function () {
 
   // management user
   Route::get('/management-user', [ManagementUserController::class, 'managementUser'])->name('managementUser');
-
-  // LOGOUT
-  Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
+
+
+// Route::middleware(['superAdmin'])->group(function() {
+Route::get('/super-admin', [SuperAdminController::class, 'dashboardSuperAdmin'])->name('dashboardSuperAdmin');
+// });

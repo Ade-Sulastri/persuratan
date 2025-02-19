@@ -10,11 +10,13 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    function showRegistrasi() {
+    function showRegistrasi()
+    {
         return view('auth.registrasi');
     }
 
-    function registrasi(Request $request){
+    function registrasi(Request $request)
+    {
         $user = new User();
         $user->nip = $request->nip;
         $user->username = $request->username;
@@ -26,24 +28,36 @@ class AuthController extends Controller
         return redirect()->route('showLogin')->with('success', 'Registrasi Berhasil');
     }
 
-    function showLogin() {
+    function showLogin()
+    {
         return view('auth.login');
     }
 
-    function submitLogin(Request $request) {
+    function submitLogin(Request $request)
+    {
         $data = $request->only('nip', 'password');
-       
-        if(Auth::attempt($data)) {
+
+        $superAdmin = config('superadmin.super_admin');
+        if ($data['nip'] == $superAdmin['nip'] && $data['password'] === $superAdmin['password']) {
+            return redirect()->route('dashboardSuperAdmin');
+        }
+
+        // jika bukan super admin
+        if (Auth::attempt($data)) {
             $request->session()->regenerate();
 
-            return redirect()->route('dashboardSupervisor');
-
+            if (Auth::user()->role === 's') {
+                return redirect()->route('dashboardSupervisor');
+            } else {
+                return redirect()->route('dashboardOperator');
+            }
         } else {
             return redirect()->back()->with('error', 'Nip atau Password salah');
         }
     }
 
-    function logout() {
+    function logout()
+    {
         Auth::logout();
 
         return redirect()->route('showLogin');

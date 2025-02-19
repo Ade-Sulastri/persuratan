@@ -1,11 +1,11 @@
-<x-supervisor.layout>
+<x-operator.layout-operator>
     <main class="">
         <div class="grid mb-4 pb-10 px-8 mx-4">
             <div class="grid grid-cols-12 gap-6">
                 <div class="grid grid-cols-12 col-span-12 gap-6 xxl:col-span-9">
                     <div class="col-span-12 mt-8">
                         <div class="flex items-center h-10 intro-y">
-                            <h2 class="mr-5 text-lg font-medium truncate">Dashboard Supervisor</h2>
+                            <h2 class="mr-5 text-lg font-medium truncate">Dashboard Operator</h2>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-5">
                             <div
@@ -43,24 +43,6 @@
                                     <div class="mt-4">
                                         <h3 class="text-3xl font-bold text-gray-800">4.510</h3>
                                         <p class="mt-2 text-gray-600">Dokumen Keluar</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                class="transform hover:scale-105 transition duration-300 shadow-lg rounded-lg bg-white border border-gray-200">
-                                <div class="p-6">
-                                    <div class="flex items-center justify-between">
-                                        <div class="p-3 bg-purple-50 rounded-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-600"
-                                                viewBox="0 0 24 24" fill="currentColor">
-                                                <path fill="currentColor"
-                                                    d="M14 19.5c0-2 1.1-3.8 2.7-4.7c-1.3-.5-2.9-.8-4.7-.8c-4.4 0-8 1.8-8 4v2h10zm5.5-3.5c-1.9 0-3.5 1.6-3.5 3.5s1.6 3.5 3.5 3.5s3.5-1.6 3.5-3.5s-1.6-3.5-3.5-3.5M16 8c0 2.2-1.8 4-4 4s-4-1.8-4-4s1.8-4 4-4s4 1.8 4 4" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div class="mt-4">
-                                        {{-- <h3 class="text-3xl font-bold text-gray-800">{{ $users->count() ?? 0 }}</h3> --}}
-                                        <p class="mt-2 text-gray-600">Pengguna Terdaftar</p>
                                     </div>
                                 </div>
                             </div>
@@ -237,4 +219,4 @@
             </div>
         </div>
     </main>
-</x-supervisor.layout>
+</x-operator.layout-operator>

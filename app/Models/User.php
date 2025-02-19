@@ -34,6 +34,20 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function isSupervisor()
+    {
+        return $this->role === 's';
+    }
+
+    public function isOperator()
+    {
+        return $this->role === 'o';
+    }
+
+    public function isSuperAdmin() {
+        return $this->role === 'S';
+    }
+
     public function getAuthIdentifierName()
     {
         return 'nip'; // Menggunakan nip sebagai identifier

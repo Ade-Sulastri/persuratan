@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->dateTime('tanggal_aktif')->nullable();
             $table->dateTime('tanggal_nonaktif')->nullable();
-            $table->char('status')->nullable();
+            $table->char('role')->default('o');
             $table->integer('kode_satker');
             $table->timestamps();
         });

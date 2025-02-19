@@ -19,17 +19,17 @@
 </head>
 
 <body class="flex">
-    <x-supervisor.sidebar/>
+    <x-operator.sidebar-operator/>
     @if (session('success'))
     <x-alert.success :message="session('success')"/>
     @endif
-
+    
     @if (session('confirm'))
-        <x-alert.confirm :message="session('confirm')"/>
+    <x-alert.confirm :message="session('confirm')"/>
     @endif
     <!-- Main Content -->
     <div class="flex-1">
-        <x-supervisor.navbar/>
+        <x-operator.navbar-operator/>
         {{ $slot }}
     </div>
 
