@@ -1,59 +1,130 @@
 <!DOCTYPE html>
-<html lang="eng">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel=" stylesheet">
-    <!--Replace with your tailwind.css once created-->
-
-
-    <!--Regular Datatables CSS-->
+    <link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
-    <!--Responsive Extension Datatables CSS-->
     <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
-    {{-- Link CSS --}}
     <link rel="stylesheet" href="{{ asset('style/style.css') }}">
     <title>DJPb</title>
 </head>
 
-<body>
-    <!--Container-->
-    <div class="container w-full   mx-auto px-5 mt-5">
-        <div class="mb-5">
-            <h1 class="text-xl font-semibold">Management User</h1>
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <div class="fixed top-0 left-0 right-0 bg-[#2A3335] shadow-md z-50">
+        <div class="container mx-auto px-5 py-4 flex justify-between items-center">
+            <div class="text-xl font-semibold text-white">Super Admin</div>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit"
+                    class="px-5 py-2 rounded-lg bg-white text-[#2A3335] font-semibold hover:bg-gray-200 transition">
+                    Logout
+                </button>
+            </form>
         </div>
-        <!--Card-->
-        <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
+    </div>
 
+    <div class="container w-full mx-auto px-5 mt-24">
+        <!-- Cards for Surat Masuk, Surat Keluar, and Total User -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-5">
+            <div
+                class="transform hover:scale-105 transition duration-300 shadow-lg rounded-lg bg-white border border-gray-200">
+                <div class="p-6">
+                    <div class="flex items-center justify-between">
+                        <div class="p-3 bg-blue-50 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path fill="currentColor"
+                                    d="M4 4a2 2 0 0 1 2-2h8a1 1 0 0 1 .707.293l5 5A1 1 0 0 1 20 8v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm13.586 4L14 4.414V8zM12 4H6v16h12V10h-5a1 1 0 0 1-1-1zm0 7.5a1 1 0 0 1 1 1v2.586l.293-.293a1 1 0 0 1 1.414 1.414l-2 2a1 1 0 0 1-1.414 0l-2-2a1 1 0 1 1 1.414-1.414l.293.293V12.5a1 1 0 0 1 1-1" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-3xl font-bold text-gray-800">0</p>
+                        <p class="mt-2 text-gray-600">Dokumen Masuk</p>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="transform hover:scale-105 transition duration-300 shadow-lg rounded-lg bg-white border border-gray-200">
+                <div class="p-6">
+                    <div class="flex items-center justify-between">
+                        <div class="p-3 bg-green-50 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" viewBox="0 0 512 512"
+                                fill="currentColor">
+                                <path fill="currentColor" fill-rule="evenodd"
+                                    d="m213.334 85.333l85.333 85.334v256h-256V85.333zM195.66 128H85.334v256H256V188.34zM384 33.83l89.75 89.752l-30.169 30.17l-38.249-38.239V256c0 45.7-35.924 83.01-81.074 85.229l-4.259.104v-42.666c22.493 0 40.921-17.406 42.55-39.483l.117-3.184l-.001-140.486l-38.247 38.238l-30.17-30.17z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="text-3xl font-bold text-gray-800">4.510</h3>
+                        <p class="mt-2 text-gray-600">Dokumen Keluar</p>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="transform hover:scale-105 transition duration-300 shadow-lg rounded-lg bg-white border border-gray-200">
+                <div class="p-6">
+                    <div class="flex items-center justify-between">
+                        <div class="p-3 bg-purple-50 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-600" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path fill="currentColor"
+                                    d="M14 19.5c0-2 1.1-3.8 2.7-4.7c-1.3-.5-2.9-.8-4.7-.8c-4.4 0-8 1.8-8 4v2h10zm5.5-3.5c-1.9 0-3.5 1.6-3.5 3.5s1.6 3.5 3.5 3.5s3.5-1.6 3.5-3.5s-1.6-3.5-3.5-3.5M16 8c0 2.2-1.8 4-4 4s-4-1.8-4-4s1.8-4 4-4s4 1.8 4 4" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="text-3xl font-bold text-gray-800">0</h3>
+                        <p class="mt-2 text-gray-600">Pengguna Terdaftar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Tambah Admin -->
+        <div class="flex justify-end mt-6">
+            <button id="tambahAdminBtn"
+                class="px-6 py-2 bg-[#2A3335] text-white rounded-lg shadow-lg hover:bg-gray-700 transition">
+                + Tambah Admin
+            </button>
+        </div>
+
+        <!-- Daftar Admin -->
+        <!--Card-->
+        <div id='recipients' class="p-8 mt-6 lg:mt-5 rounded shadow bg-white">
+            <h2 class="text-2xl font-bold mt-2 ml-2 mr-2 mb-7">Daftar Admin</h2>
             <table id="example" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
-                <thead>
+                <thead class="bg-gray-100 border-b border-gray-300">
                     <tr>
-                        <th data-priority="1">No</th>
-                        <th data-priority="2">Nip User</th>
-                        <th data-priority="3">Username</th>
-                        <th data-priority="4">Email</th>
-                        <th data-priority="5">Tanggal Aktif</th>
-                        <th data-priority="6">Tanggal Non-aktif</th>
-                        <th data-priority="7">Kode Satker</th>
-                        <th data-priority="7">Role</th>
-                        <th data-priority="8">Aksi</th>
+                        <th class="border border-gray-300 px-4 py-2">No</th>
+                        <th class="border border-gray-300 px-4 py-2">Nip User</th>
+                        <th class="border border-gray-300 px-4 py-2">Username</th>
+                        <th class="border border-gray-300 px-4 py-2">Email</th>
+                        <th class="border border-gray-300 px-4 py-2">Tanggal Aktif</th>
+                        <th class="border border-gray-300 px-4 py-2">Tanggal Non-aktif</th>
+                        <th class="border border-gray-300 px-4 py-2">Kode Satker</th>
+                        <th class="border border-gray-300 px-4 py-2">Role</th>
+                        <th class="border border-gray-300 px-4 py-2">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>1.</td>
-                        <td>tes</td>
-                        <td>tes</td>
-                        <td>tes</td>
-                        <td>tes</td>
-                        <td>tes</td>
-                        <td>tes</td>
-                        <td>tes</td>
-                        <td class="flex justify-center gap-x-2">
+                        <td class="border border-gray-300 px-4 py-2">1.</td>
+                        <td class="border border-gray-300 px-4 py-2">tes</td>
+                        <td class="border border-gray-300 px-4 py-2">tes</td>
+                        <td class="border border-gray-300 px-4 py-2">tes</td>
+                        <td class="border border-gray-300 px-4 py-2">tes</td>
+                        <td class="border border-gray-300 px-4 py-2">tes</td>
+                        <td class="border border-gray-300 px-4 py-2">tes</td>
+                        <td class="border border-gray-300 px-4 py-2">tes</td>
+                        <td class="border border-gray-300 px-4 py-2 flex justify-center gap-x-2">
                             <!-- Hapus Button -->
                             <button
                                 class="p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition duration-300">
@@ -83,31 +154,25 @@
                         </td>
                     </tr>
                 </tbody>
-
             </table>
-
-
         </div>
         <!--/Card-->
-
-
     </div>
-    <!--/container-->
 
-    <!-- jQuery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-    <!--Datatables -->
+    <!-- jQuery & DataTables -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script>
         $(document).ready(function() {
+            $('#example').DataTable({
+                responsive: true
+            });
 
-            var table = $('#example').DataTable({
-                    responsive: true
-                })
-                .columns.adjust()
-                .responsive.recalc();
+            $("#tambahAdminBtn").on("click", function() {
+                alert("Form tambah admin akan muncul di sini!");
+            });
         });
     </script>
 </body>
