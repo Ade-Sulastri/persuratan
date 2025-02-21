@@ -16,12 +16,15 @@ class SuperAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $superAdminNIP = config('superadmin.super_admin.nip');
+        $superAdminRole = config('superadmin.super_admin.role');
 
-        if (Auth::user()->role === 'S') {
+        $user = session('user');
+
+        if ($user && $user['nip'] === $superAdminNIP && $user['role'] === $superAdminRole) {
             return $next($request);
         }
 
         return redirect()->route('showLogin')->with('error', 'Anda tidak memiliki akses');
-
     }
 }

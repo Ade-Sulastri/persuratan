@@ -50,6 +50,12 @@ class AuthController extends Controller
 
         $superAdmin = config('superadmin.super_admin');
         if ($data['nip'] == $superAdmin['nip'] && $data['password'] === $superAdmin['password']) {
+            session([
+                'user' => [
+                    'nip' => $superAdmin['nip'],
+                    'role' => $superAdmin['role'],
+                ],
+            ]);
             return redirect()->route('dashboardSuperAdmin');
         }
 
