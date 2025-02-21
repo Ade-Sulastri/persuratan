@@ -2,12 +2,20 @@
     {{-- @props(['dataSurat']) --}}
 
     <!--Container-->
-    <div class="container w-full   mx-auto px-5 mt-5">
+    <div id="main-content" class="md:ml-64 w-full md:w-[calc(100%-16rem)] px-5 mt-20 transition-all duration-300">
         <div class="mb-5">
             <h1 class="text-xl font-semibold">Surat Keluar</h1>
         </div>
+        <div class="flex justify-end items-center mb-5">
+            <!-- Tombol Tambah Surat -->
+            <button onclick="openModal('modalTambahSurat')"
+                class="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-700">
+                + Tambah Surat
+            </button>
+        </div>
         <!--Card-->
-        <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
+        <div class="bg-white p-4 shadow-lg rounded-lg border-gray-200 border">
+            {{-- <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white"> --}}
 
             <table id="example" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                 <thead>
@@ -64,16 +72,60 @@
                         </tr>
                     @endforeach
                 </tbody>
-
             </table>
-
-
+            {{-- </div> --}}
         </div>
         <!--/Card-->
-
-
     </div>
     <!--/container-->
+
+
+    <!-- Modal Tambah Surat -->
+    <div id="modalTambahSurat" class="fixed inset-0 bg-gray-800 bg-opacity-50 hidden justify-center items-center z-50">
+        <div class="bg-white rounded-lg shadow-lg w-1/2 p-6">
+            <div class="flex justify-between items-center border-b pb-2">
+                <h2 class="text-xl font-semibold">Tambah Surat</h2>
+                <button onclick="closeModal('modalTambahSurat')" class="text-gray-500 hover:text-gray-700">✖</button>
+            </div>
+            <div class="mt-4">
+                <form action="{{ route('submitSurat') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="grid gap-4">
+                        <div>
+                            <label class="block">No Surat</label>
+                            <input type="text" name="no_surat"
+                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required />
+                        </div>
+
+                        <div>
+                            <label class="block">Tanggal Surat</label>
+                            <input type="date" name="tanggal_surat"
+                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required />
+                        </div>
+
+                        <div>
+                            <label class="block">Perihal</label>
+                            <input type="text" name="perihal" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                required />
+                        </div>
+
+                        <div>
+                            <label class="block">Upload File</label>
+                            <input type="file" name="file" class="mt-1" required />
+                        </div>
+
+                        <div class="text-right">
+                            <button type="submit"
+                                class="bg-green-500 text-white px-4 py-2 rounded shadow hover:bg-green-700">
+                                Simpan
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
     <!-- jQuery -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -90,6 +142,16 @@
                 .columns.adjust()
                 .responsive.recalc();
         });
+
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+            document.getElementById(id).classList.add('flex');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('flex');
+            document.getElementById(id).classList.add('hidden');
+        }
     </script>
 
 </x-operator.layout-operator>

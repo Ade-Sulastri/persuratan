@@ -7,29 +7,30 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel=" stylesheet">
-	<!--Replace with your tailwind.css once created-->
+    <!--Replace with your tailwind.css once created-->
 
 
-	<!--Regular Datatables CSS-->
-	<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
-	<!--Responsive Extension Datatables CSS-->
-	<link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
+    <!--Regular Datatables CSS-->
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!--Responsive Extension Datatables CSS-->
+    <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
     {{-- Link CSS --}}
     <link rel="stylesheet" href="{{ asset('style/style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" />
 </head>
 
 <body class="flex">
-    <x-operator.sidebar-operator/>
+    <x-operator.sidebar-operator />
     @if (session('success'))
-    <x-alert.success :message="session('success')"/>
+        <x-alert.success :message="session('success')" />
     @endif
-    
+
     @if (session('confirm'))
-    <x-alert.confirm :message="session('confirm')"/>
+        <x-alert.confirm :message="session('confirm')" />
     @endif
     <!-- Main Content -->
     <div class="flex-1">
-        <x-operator.navbar-operator/>
+        <x-operator.navbar-operator />
         {{ $slot }}
     </div>
 

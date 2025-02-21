@@ -1,5 +1,5 @@
 <x-operator.layout-operator>
-    <main class="">
+    <main id="main-content" class="pt-16 md:ml-64 p-6 transition-all duration-300">
         <div class="grid mb-4 pb-10 px-8 mx-4">
             <div class="grid grid-cols-12 gap-6">
                 <div class="grid grid-cols-12 col-span-12 gap-6 xxl:col-span-9">
@@ -7,7 +7,8 @@
                         <div class="flex items-center h-10 intro-y">
                             <h2 class="mr-5 text-lg font-medium truncate">Dashboard Operator</h2>
                         </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-5">
+                        <div style="z-index: -1" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-5">
+                            <!-- Dokumen Masuk -->
                             <div
                                 class="transform hover:scale-105 transition duration-300 shadow-lg rounded-lg bg-white border border-gray-200">
                                 <div class="p-6">
@@ -21,13 +22,13 @@
                                         </div>
                                     </div>
                                     <div class="mt-4">
-                                        <p class="text-3xl font-bold text-gray-800">
-                                            {{ $suratMasuk->count() ?? 0 }}
-                                        </p>
+                                        <p class="text-3xl font-bold text-gray-800">{{ $suratMasuk->count() ?? 0 }}</p>
                                         <p class="mt-2 text-gray-600">Dokumen Masuk</p>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Dokumen Keluar -->
                             <div
                                 class="transform hover:scale-105 transition duration-300 shadow-lg rounded-lg bg-white border border-gray-200">
                                 <div class="p-6">
@@ -41,8 +42,30 @@
                                         </div>
                                     </div>
                                     <div class="mt-4">
-                                        <h3 class="text-3xl font-bold text-gray-800">{{ $suratKeluar->count() ?? 0 }}</h3>
+                                        <h3 class="text-3xl font-bold text-gray-800">{{ $suratKeluar->count() ?? 0 }}
+                                        </h3>
                                         <p class="mt-2 text-gray-600">Dokumen Keluar</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Total Dokumen -->
+                            <div
+                                class="transform hover:scale-105 transition duration-300 shadow-lg rounded-lg bg-white border border-gray-200">
+                                <div class="p-6">
+                                    <div class="flex items-center justify-between">
+                                        <div class="p-3 bg-purple-50 rounded-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-600"
+                                                viewBox="0 0 512 512" fill="currentColor">
+                                                <path fill="currentColor" fill-rule="evenodd"
+                                                    d="M234.666 170.667L320 256v213.334H85.333V170.667zm-17.685 42.667H128v213.333h149.333V273.686zm81.685-106.667L384 192v213.334l-42.667-.001V209.686l-60.352-60.352l-131.648-.001v-42.666zm64-64L448 128v213.334l-42.667-.001V145.686l-60.352-60.352l-131.648-.001V42.667z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4">
+                                        <h3 class="text-3xl font-bold text-gray-800">
+                                            {{ ($suratMasuk->count() ?? 0) + ($suratKeluar->count() ?? 0) }}</h3>
+                                        <p class="mt-2 text-gray-600">Total Dokumen</p>
                                     </div>
                                 </div>
                             </div>
@@ -131,8 +154,8 @@
                                                                         <a href="#"
                                                                             class="text-red-500 hover:text-red-600">
                                                                             <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                class="w-5 h-5 mr-1 ml-3" fill="none"
-                                                                                viewBox="0 0 24 24"
+                                                                                class="w-5 h-5 mr-1 ml-3"
+                                                                                fill="none" viewBox="0 0 24 24"
                                                                                 stroke="currentColor">
                                                                                 <path stroke-linecap="round"
                                                                                     stroke-linejoin="round"
