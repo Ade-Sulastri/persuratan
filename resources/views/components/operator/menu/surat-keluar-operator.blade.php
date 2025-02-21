@@ -42,24 +42,6 @@
                             <td>{{ \Carbon\Carbon::parse($data->created_at)->format('m/d/Y') }}</td>
                             <td class="flex justify-center">
                                 <div class="flex space-x-2">
-                                    <!-- Hapus Button -->
-                                    <form action="{{ route('deleteSuratOperator', $data->id) }}" method="POST">
-                                        @csrf
-                                        <button
-                                            class="p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition duration-300">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
-                                                viewBox="0 0 24 24">
-                                                <g fill="none" stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="1.5">
-                                                    <path
-                                                        d="M5.47 6.015v12.514a2.72 2.72 0 0 0 2.721 2.721h7.618a2.72 2.72 0 0 0 2.72-2.72V6.014m-15.235.001h17.412" />
-                                                    <path
-                                                        d="M8.735 6.015V4.382a1.63 1.63 0 0 1 1.633-1.632h3.264a1.63 1.63 0 0 1 1.633 1.632v1.633M9.824 16.992v-5.439m4.353 5.439v-5.439" />
-                                                </g>
-                                            </svg>
-                                        </button>
-                                    </form>
-
                                     <!-- Edit Button -->
                                     <button
                                         class="p-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white transition duration-300">

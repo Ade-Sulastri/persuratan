@@ -9,9 +9,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\super_admin\SuperAdminController;
 
 // supervisor
+use App\Http\Controllers\supervisor\SuratSupervisorController;
 use App\Http\Controllers\supervisor\DashboardController;
-use App\Http\Controllers\supervisor\SuratMasukController;
-use App\Http\Controllers\supervisor\SuratKeluarController;
 use App\Http\Controllers\supervisor\ManagementUserController;
 
 // operator
@@ -28,6 +27,8 @@ Route::get('/', [AuthController::class, 'showLogin'])->name('showLogin');
 Route::post('/login/submit', [AuthController::class, 'submitLogin'])->name('submitLogin');
 });
 
+
+// OPERATOR/USERS
 Route::middleware(['isAuth'])->group(function () {
   // OPERATOR
   Route::get('/dashboard-operator', [DashboardOperatorController::class, 'dashboardOperator'])->name('dashboardOperator');
@@ -53,26 +54,32 @@ Route::middleware(['isAuth'])->group(function () {
 // LOGOUT
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-
+// SUPRVISOR/ADMIN
 Route::middleware(['admin'])->group(function () {
   // SUPERVISOR
   Route::get('/supervisor', [DashboardController::class, 'dashboardSupervisor'])->name('dashboardSupervisor');
 
   // surat masuk
-  Route::get('/surat-masuk-supervisor', [SuratMasukController::class, 'suratMasukSupervisor'])->name('suratMasukSupervisor');
-
-  Route::post('/delete-surat/{id}', [SuratMasukController::class, 'deleteSurat'])->name('deleteSurat');
-
-  Route::get('/downloadSurat/{filename}', [SuratMasukController::class, 'downloadSurat'])->name('downloadSurat');
-
+  Route::get('/surat-masuk-supervisor', [SuratSupervisorController::class, 'suratMasukSupervisor'])->name('suratMasukSupervisor');
+  // delete surat
+  Route::post('/delete-surat/{id}', [SuratSupervisorController::class, 'deleteSurat'])->name('deleteSurat');
+  // download surat
+  Route::get('/downloadSurat/{filename}', [SuratSupervisorController::class, 'downloadSurat'])->name('downloadSurat');
+  // update surat
+  Route::put('/update-surat/{id}', [SuratSupervisorController::class, 'updateSurat'])->name('updateSurat');
   // surat keluar
-  Route::get('/surat-keluar-supervisor', [SuratKeluarController::class, 'suratKeluarSupervisor'])->name('suratKeluarSupervisor');
+  Route::get('/surat-keluar-supervisor', [SuratSupervisorController::class, 'suratKeluarSupervisor'])->name('suratKeluarSupervisor');
 
   // management user
   Route::get('/management-user', [ManagementUserController::class, 'managementUser'])->name('managementUser');
+
+  // delete user
+  Route::post('/delete-user/{nip}', [ManagementUserController::class, 'deleteUser'])->name('deleteUser');
+  // edit user 
+  Route::put('/update-user/{nip}', [ManagementUserController::class, 'updateUser'])->name('updateUser');
 });
 
 
-// Route::middleware(['superAdmin'])->group(function() {
+Route::middleware(['superAdmin'])->group(function() {
 Route::get('/super-admin', [SuperAdminController::class, 'dashboardSuperAdmin'])->name('dashboardSuperAdmin');
-// });
+});

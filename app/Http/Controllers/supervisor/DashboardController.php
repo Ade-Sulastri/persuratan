@@ -10,10 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    function dashboardSupervisor() {
-        $users = User::all();
+    function dashboardSupervisor()
+    {
+        $users = User::where('role', 'o')->get();
         $totalSurat = Surat::all();
-        
-        return view('supervisor.dashboard', compact('users','totalSurat'));
+        $suratMasuk = Surat::where('status', 'm')->get();
+        $suratKeluar = Surat::where('status', 'k')->get();
+
+        return view('supervisor.dashboard', compact('users', 'totalSurat', 'suratMasuk', 'suratKeluar'));
     }
 }
