@@ -14,9 +14,7 @@ class SuratOperatorController extends Controller
     {
         // ambil nip user
         $nipOperator = Auth::user()->nip;
-        $dataSurat = Surat::where('status', 'm')
-            ->where('nip_user', $nipOperator)
-            ->get();
+        $dataSurat = Surat::join('t_user', 'd_surat.nip_user', '=', 't_user.nip')->where('d_surat.status', 'm')->where('t_user.kode_satker', Auth::user()->kode_satker)->select('d_surat.*')->get();
 
         return view('components.operator.menu.surat-masuk-operator', compact('dataSurat'));
     }
@@ -25,8 +23,8 @@ class SuratOperatorController extends Controller
     public function suratKeluarOperator()
     {
         $nipOperator = Auth::user()->nip;
-        $dataSurat = Surat::where('status', 'k')->where('nip_user', $nipOperator)->get();
-
+        $dataSurat = Surat::join('t_user', 'd_surat.nip_user', '=', 't_user.nip')->where('d_surat.status', 'k')->where('t_user.kode_satker', Auth::user()->kode_satker)->select('d_surat.*')->get();
+        
         return view('components.operator.menu.surat-keluar-operator', compact('dataSurat'));
     }
 

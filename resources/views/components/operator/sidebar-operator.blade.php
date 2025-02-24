@@ -10,11 +10,6 @@ class="fixed top-0 left-0 w-64 h-full bg-[#2A3335] text-white p-5 pt-16 md:block
             </a>
         </li>
         <li class="mb-3">
-            <a href="{{ route('tambahSurat') }}" class="block p-2 hover:bg-white hover:text-black rounded">
-                Tambah Surat
-            </a>
-        </li>
-        <li class="mb-3">
             <a href="{{ route('suratMasukOperator') }}" class="block p-2 hover:bg-white hover:text-black rounded">
                 Surat Masuk
             </a>
