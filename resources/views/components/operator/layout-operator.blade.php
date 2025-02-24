@@ -17,6 +17,9 @@
     {{-- Link CSS --}}
     <link rel="stylesheet" href="{{ asset('style/style.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" />
+
+    <link rel="shortcut icon" href="{{ asset('images/Logo_kementerian_keuangan_republik_indonesia.png') }}" type="image/x-icon">
+    <title>Dashbord User | Kanwil Sultra</title>
 </head>
 
 <body class="flex">
