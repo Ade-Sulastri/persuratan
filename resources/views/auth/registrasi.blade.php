@@ -54,7 +54,7 @@
                 <!-- Kode Satker -->
                 <div>
                     <label for="kode_satker" class="block text-sm font-medium text-gray-700">Kode Satker</label>
-                    <input type="text" id="kode_satker" name="kode_satker"
+                    <input type="text" id="kode_satker" name="kode_satker" minlength="16" maxlength="16"
                         class="mt-1 w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Masukkan Kode Satker" value="{{ old('kode_satker') }}" required>
                 </div>
