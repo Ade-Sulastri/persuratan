@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class TambahSuratController extends Controller
 {
+    // bakal di hapus
     function tambahSurat()
     {
         $user = Auth::user();
@@ -17,12 +18,14 @@ class TambahSuratController extends Controller
 
     // tambah surat masuk
     public function tambahSuratMasuk(Request $request) {
+
+        dd($request->all());
         // Validasi input
         $request->validate([
             'no_surat' => 'required|string',
             'tanggal_surat' => 'required|date',
             'perihal' => 'required|string',
-            'status' => 'required|alpha',
+            // 'file' => 'required|'
         ]);
 
         // Menyimpan file
@@ -40,17 +43,17 @@ class TambahSuratController extends Controller
         $surat->generated_file_name = $fileName;
         $surat->save();
 
-        return redirect()->route('suratMasukOperator')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Data berhasil ditambahkan');
     }
 
     // tambah surat keluar
     public function tambahSuratKeluar(Request $request) {
+        // dd($request->all());
          // Validasi input
          $request->validate([
             'no_surat' => 'required|string',
             'tanggal_surat' => 'required|date',
             'perihal' => 'required|string',
-            'status' => 'required|alpha',
         ]);
 
         // Menyimpan file
@@ -68,9 +71,10 @@ class TambahSuratController extends Controller
         $surat->generated_file_name = $fileName;
         $surat->save();
 
-        return redirect()->route('suratKeluarOperator')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Data berhasil ditambahkan');
     }
 
+    // bakal di hapus
     function submitSurat(Request $request)
     {
         // Validasi input
@@ -90,7 +94,7 @@ class TambahSuratController extends Controller
         $surat->no_surat = $request->no_surat;
         $surat->tanggal_surat = $request->tanggal_surat;
         $surat->perihal = $request->perihal;
-        $surat->status = $request->status;
+        // $surat->status = $request->status;
         $surat->nip_user = Auth::user()->nip;
         $surat->original_file_name = $file->getClientOriginalName();
         $surat->generated_file_name = $fileName;
@@ -105,5 +109,11 @@ class TambahSuratController extends Controller
         $surat->delete();
 
         return redirect()->route('suratMasukSupervisor')->with('success', 'Surat Berhasil di Hapus');
+    }
+
+    function updateSurat(Request $request, $id) {
+        $idSurat = Surat::find($id);
+
+        
     }
 }

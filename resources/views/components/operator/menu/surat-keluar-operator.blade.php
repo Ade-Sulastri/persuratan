@@ -44,6 +44,7 @@
                                 <div class="flex space-x-2">
                                     <!-- Edit Button -->
                                     <button
+                                        onclick="updateSuratKeluar('{{ $data->id }}', '{{ $data->no_surat }}', '{{ $data->tanggal_surat ? date('Y-m-d', strtotime($data->tanggal_surat)) : '' }}', '{{ $data->perihal }}', '{{ $data->original_file_name }}')"
                                         class="p-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white transition duration-300">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -88,7 +89,7 @@
                 <button onclick="closeModal('modalTambahSurat')" class="text-gray-500 hover:text-gray-700">✖</button>
             </div>
             <div class="mt-4">
-                <form action="{{ route('submitSurat') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('tambahSuratKeluar') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="grid gap-4">
                         <div>
@@ -126,6 +127,65 @@
         </div>
     </div>
 
+    {{-- MODAL EDIT SURAT DI OPERATOR --}}
+    <div class="relative z-50 hidden" aria-labelledby="modal-title" role="form" aria-modal="true"
+        id="modalUpdateSurat">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div
+                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="flex justify-between items-center border-b pb-2">
+                            <h2 class="text-xl font-semibold">Edit Surat</h2>
+                            <button onclick="closeModalEditSurat()" class="text-gray-500 hover:text-gray-700">✖</button>
+                        </div>
+                        <div class="mt-4">
+                            <form id="updateSuratOperator" action="" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                <div class="grid gap-4">
+                                    <div>
+                                        <label class="block">No Surat</label>
+                                        <input type="text" name="no_surat"
+                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" id="modal_no_surat"
+                                            required />
+                                    </div>
+
+                                    <div>
+                                        <label class="block">Tanggal Surat</label>
+                                        <input type="date" name="tanggal_surat"
+                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                            id="modal_tanggal_surat" required />
+                                    </div>
+
+                                    <div>
+                                        <label class="block">Perihal</label>
+                                        <input type="text" name="perihal"
+                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" id="modal_perihal"
+                                            required />
+                                    </div>
+
+                                    <div>
+                                        <p class="text-sm text-gray-600 mb-2" id="current_file_display"></p>
+                                        <input type="file" name="file" class="mt-1" id="modal_file"
+                                             />
+                                    </div>
+
+                                    <div class="text-right">
+                                        <button type="submit"
+                                            class="bg-green-500 text-white px-4 py-2 rounded shadow hover:bg-green-700">
+                                            Simpan
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- jQuery -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -151,6 +211,19 @@
         function closeModal(id) {
             document.getElementById(id).classList.remove('flex');
             document.getElementById(id).classList.add('hidden');
+        }
+
+        function updateSuratKeluar(id, no_surat, tanggal_surat, perihal, original_file_name) {
+            document.getElementById('modalUpdateSurat').classList.remove('hidden');
+            document.getElementById('modal_no_surat').value = no_surat;
+            document.getElementById('modal_tanggal_surat').value = tanggal_surat;
+            document.getElementById('modal_perihal').value = perihal;
+            document.getElementById('current_file_display').textContent = `Current file: ${original_file_name}`;
+            document.getElementById('updateSuratOperator').action = `/update-surat-operator/${id}`;
+        }
+
+        function closeModalEditSurat() {
+            document.getElementById('modalUpdateSurat').classList.add('hidden');
         }
     </script>
 

@@ -30,8 +30,6 @@
         <x-alert.confirm :message="session('confirm')"/>
     @endif
 
-    {{-- <x-supervisor.menu.edit-user/> --}}
-
     <!-- Main Content -->
     <div class="flex-1">
         <x-supervisor.navbar/>
