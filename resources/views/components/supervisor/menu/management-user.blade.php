@@ -84,18 +84,25 @@
                             <div class="grid gap-4 gap-y-2 text-sm col">
                                 <div class="col">
                                     <label for="nip">Nip User</label>
-                                    <input type="text" name="nip" id="modal_nip"
-                                        class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" readonly />
+                                    <input type="number" name="nip" id="modal_nip"
+                                        class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                        oninput="this.value = this.value.slice(0, 18);" readonly required/>
+                                    @error('nip')
+                                        <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="col">
                                     <label for="username">Username</label>
                                     <input type="text" name="username" id="modal_username"
-                                        class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" readonly />
+                                        class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" readonly required/>
                                 </div>
                                 <div class="col">
                                     <label for="email">Email</label>
                                     <input type="email" name="email" id="modal_email"
-                                        class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" readonly />
+                                        class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" readonly required/>
+                                    @error('email')
+                                        <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="col mt-3">
                                     <label for="tanggal_nonaktif">Tanggal Non-Aktif</label>
@@ -105,7 +112,8 @@
                                 <div class="col mt-3">
                                     <label for="kode_satker">Kode Satker</label>
                                     <input type="number" name="kode_satker" id="modal_kode_satker"
-                                        class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" />
+                                        class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                        oninput="this.value = this.value.slice(0, 6);" required />
                                 </div>
                                 <div class="col text-right flex items-center justify-end mt-3">
                                     <div class="bg-gray-50 sm:flex sm:flex-row-reverse sm:px-2">
@@ -126,7 +134,8 @@
     </div>
 
     {{-- MODAL DELETE USER --}}
-    <div class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="confirmModal">
+    <div class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true"
+        id="confirmModal">
         <!-- Background backdrop -->
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">

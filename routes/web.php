@@ -16,8 +16,6 @@ use App\Http\Controllers\supervisor\ManagementUserController;
 // operator
 use App\Http\Controllers\operator\DashboardOperatorController;
 use App\Http\Controllers\operator\SuratOperatorController;
-use App\Http\Controllers\operator\TambahSuratController;
-
 
 Route::middleware('guest')->group(function () {
   Route::get('/registrasi', [AuthController::class, 'showRegistrasi'])->name('showRegistrasi');
@@ -32,10 +30,6 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['isAuth'])->group(function () {
   // masuk ke dashboard OPERATOR
   Route::get('/dashboard-operator', [DashboardOperatorController::class, 'dashboardOperator'])->name('dashboardOperator');
-
-  // tambah surat (sebentar lagi bakal di hapus)
-  Route::get('/tambah-surat', [TambahSuratController::class, 'tambahSurat'])->name('tambahSurat');
-  Route::post('/tambah-surat-submit', [TambahSuratController::class, 'submitSurat'])->name('submitSurat');
 
   // tambah surat masuk 
   Route::post('/surat-masuk', [SuratOperatorController::class, 'tambahSuratMasuk'])->name('tambahSuratMasuk');

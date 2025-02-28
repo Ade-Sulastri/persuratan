@@ -20,6 +20,10 @@
         <x-alert.success :message="session('success')" />
     @endif
 
+    @if (session('error'))
+        <x-alert.error :message="session('error')" />
+    @endif
+
     <!-- Navbar -->
     <div class="fixed top-0 left-0 right-0 bg-[#2A3335] shadow-md z-10">
         <div class="container mx-auto px-5 py-4 flex justify-between items-center">
@@ -193,37 +197,49 @@
                             @csrf
                             <div class="col">
                                 <label for="nip">Nip User</label>
-                                <input name="nip" maxlength="18" minlength="18" type="text"
-                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="Masukkan nip" />
+                                <input id="nip" name="nip" maxlength="18" minlength="18" type="text"
+                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 @error('nip') border-red-500 @enderror"
+                                    placeholder="Masukkan nip" value="{{ old('nip') }}" required />
+                                @error('nip')
+                                    <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="col mt-3">
                                 <label for="username">Username</label>
                                 <input type="text" name="username"
-                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="Masukkan username" />
+                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                    placeholder="Masukkan username" value="{{ old('username') }}" required />
                             </div>
                             <div class="col mt-3">
                                 <label for="password">Password</label>
                                 <input type="password" minlength="8"
-                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" name="password" placeholder="Masukkan password" />
+                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" name="password"
+                                    placeholder="Masukkan password" required />
                             </div>
                             <div class="col mt-3">
                                 <label for="email">Email</label>
-                                <input type="email" name="email"
-                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="Masukkan email" />
+                                <input type="email" name="email" id="email"
+                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 @error('email') border-red-500 @enderror"
+                                    placeholder="Masukkan email" value="{{ old('email') }}" required />
+                                @error('email')
+                                    <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="col mt-3">
                                 <label for="kode_satker">Kode Satker</label>
-                                <input type="number" name="kode_satker" 
-                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" />
+                                <input type="text" name="kode_satker" maxlength="6" minlength="6"
+                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                    value="{{ old('kode_satker') }}" required />
                             </div>
                             <div class="col mt-3">
-                                <label for="kode_satker">Role</label>
+                                <label for="role">Role</label>
                                 <div class="flex gap-x-2">
                                     <p class="text-gray-400">s: supervisor/admin</p>
                                     <p class="text-gray-400">o: operator/user</p>
                                 </div>
                                 <input type="text" minlength="1" maxlength="1" name="role"
-                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" />
+                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                    value="{{ old('role') }}" required />
                             </div>
 
                             {{-- button action --}}
@@ -261,23 +277,30 @@
                             @method('PUT')
                             <div class="col">
                                 <label for="nip">Nip User</label>
-                                <input maxlength="18" minlength="18" type="text" name="nip" id="modal_nip"
-                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" />
+                                <input type="number" name="nip" id="modal_nip"
+                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"  oninput="this.value = this.value.slice(0, 18);" required />
+                                @error('nip')
+                                    <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="col mt-3">
                                 <label for="username">Username</label>
                                 <input type="text" name="username" id="modal_username"
-                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" />
+                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required />
                             </div>
                             <div class="col mt-3">
                                 <label for="email">Email</label>
                                 <input type="email" name="email" id="modal_email"
-                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" />
+                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required />
+                                @error('email')
+                                    <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="col mt-3">
                                 <label for="kode_satker">Kode Satker</label>
-                                <input type="number" name="kode_satker" id="modal_kode_satker"
-                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" />
+                                <input type="number" name="kode_satker"
+                                    id="modal_kode_satker" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" oninput="this.value = this.value.slice(0, 6);"
+                                    required />
                             </div>
                             <div class="col mt-3">
                                 <label for="kode_satker">Role</label>
@@ -286,7 +309,7 @@
                                     <p class="text-gray-400">o: operator/user</p>
                                 </div>
                                 <input type="text" minlength="1" maxlength="1" name="role" id="modal_role"
-                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" />
+                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required />
                             </div>
 
                             {{-- button action --}}
@@ -304,7 +327,8 @@
     </div>
 
     {{-- MODAL CONFIRM DELETE ADMIN --}}
-    <div class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="confirmModal">
+    <div class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true"
+        id="confirmModal">
         <!-- Background backdrop -->
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -372,6 +396,26 @@
             document.getElementById('tambahAdminModal').classList.add('hidden');
         }
 
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check for specific session flags instead of just errors
+            @if (session('openTambahAdminModal'))
+                tambahAdmin();
+            @endif
+
+            @if (session('openUpdateAdminModal'))
+                // Use form values from old() to repopulate the form
+                updateAdmin(
+                    "{{ old('nip') }}",
+                    "{{ old('username') }}",
+                    "{{ old('email') }}",
+                    "{{ old('kode_satker') }}",
+                    "{{ old('role') }}"
+                );
+                // Set the form action using the original NIP
+                document.getElementById('editAdmin').action = `/edit-admin/{{ session('editNip') }}`;
+            @endif
+        });
+
         // UPDATE ADMIN
         function updateAdmin(nip, username, email, kode_satker, role) {
             document.getElementById('modal_nip').value = nip;
@@ -382,7 +426,7 @@
             document.getElementById('editAdmin').action = `/edit-admin/${nip}`;
             document.getElementById('updateAdminModal').classList.remove('hidden');
         }
-        
+
         function closeModalUpdateAdmin() {
             document.getElementById('updateAdminModal').classList.add('hidden');
         }

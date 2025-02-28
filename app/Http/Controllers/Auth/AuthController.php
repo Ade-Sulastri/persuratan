@@ -22,7 +22,7 @@ class AuthController extends Controller
             'nip' => 'required|unique:t_user,nip|min:18|max:18',
             'username' => 'required|string|max:255',
             'email' => 'required|email|unique:t_user,email',
-            'kode_satker' => 'required|string|max:255',
+            'kode_satker' => 'required|numeric|digits:6',
             'password' => 'required|min:8|confirmed', 
         ]);
 

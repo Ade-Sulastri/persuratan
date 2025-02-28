@@ -66,9 +66,9 @@
                     @csrf
                     <div>
                         <label for="nip" class="block mb-2 text-sm font-medium text-gray-700">NIP</label>
-                        <input type="text" id="nip" name="nip"
+                        <input type="number" id="nip" name="nip"
                             class="bg-gray-100 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2 mt-1"
-                            placeholder="Masukkan NIP Anda" required>
+                            placeholder="Masukkan NIP Anda" oninput="this.value = this.value.slice(0, 18);" required>
                     </div>
                     <div>
                         <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
