@@ -1,73 +1,85 @@
 <x-supervisor.layout>
-    <!--Container-->
-    <div class="col-span-12 mt-5">
-        <div class="grid gap-2 grid-cols-1 lg:grid-cols-1">
-            <div class="bg-white p-4 shadow-lg rounded-lg border-gray-200">
-                <div class="container w-full md:ml-64 p-6 transition-all duration-300 mx-auto px-5 mt-5">
-                    <div class="mb-5">
-                        <h1 class="text-xl font-semibold">Surat Masuk</h1>
-                    </div>
+    {{--  --}}
+    <div id="main-content" class="md:ml-64 w-full md:w-[calc(100%-16rem)] px-5 mt-20 transition-all duration-300">
+        <div class="container w-full mx-auto px-5 mt-24">
+            <!--Card table-->
+            <div id='recipients' class="p-8 mt-6 lg:mt-5 rounded shadow bg-white">
+                <h2 class="text-2xl font-bold mt-2 ml-2 mr-2 mb-7">Daftar Admin</h2>
+                <table id="example" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+                    <thead class="bg-gray-100 border-b border-gray-300">
+                        <tr>
+                            <th data-priority="1">No</th>
+                            <th data-priority="2">Nip User</th>
+                            <th data-priority="3">No Surat</th>
+                            <th data-priority="4">Tanggal Surat</th>
+                            <th data-priority="5">Perihal</th>
+                            <th data-priority="6">File</th>
+                            <th data-priority="7">Tanggal Input Data</th>
+                            <th data-priority="8">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($dataSuratKeluar as $surat)
+                            <tr>
+                                <td>{{ $loop->iteration }}.</td>
+                                <td>{{ $surat->nip_user }}</td>
+                                <td>{{ $surat->no_surat }}</td>
+                                <td>{{ \Carbon\Carbon::parse($surat->tanggal_surat)->format('m/d/Y') }}</td>
+                                <td>{{ $surat->perihal }}</td>
+                                <td>{{ $surat->original_file_name }}</td>
+                                <td>{{ \Carbon\Carbon::parse($surat->created_at)->format('m/d/Y') }}</td>
+                                <td class="flex justify-center space-x-2">
+                                    <!-- Hapus Button -->
+                                    <button onclick="openModalConfirm('{{ $surat->id }}')"
+                                        class="p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition duration-300">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+                                        viewBox="0 0 24 24">
+                                        <g fill="none" stroke="currentColor" stroke-linecap="round"
+                                            stroke-linejoin="round" stroke-width="1.5">
+                                            <path
+                                                d="M5.47 6.015v12.514a2.72 2.72 0 0 0 2.721 2.721h7.618a2.72 2.72 0 0 0 2.72-2.72V6.014m-15.235.001h17.412" />
+                                            <path
+                                                d="M8.735 6.015V4.382a1.63 1.63 0 0 1 1.633-1.632h3.264a1.63 1.63 0 0 1 1.633 1.632v1.633M9.824 16.992v-5.439m4.353 5.439v-5.439" />
+                                        </g>
+                                    </svg>
+                                    </button>
 
-                    <!--Card-->
-                    <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white border w-full">
-                        <div class="overflow-x-auto">
-                            <table id="example" class="stripe hover w-full min-w-max">
-                                <thead>
-                                    <tr>
-                                        <th data-priority="1">No</th>
-                                        <th data-priority="2">Nip User</th>
-                                        <th data-priority="3">No Surat</th>
-                                        <th data-priority="4">Tanggal Surat</th>
-                                        <th data-priority="5">Perihal</th>
-                                        <th data-priority="6">File</th>
-                                        <th data-priority="7">Tanggal Input Data</th>
-                                        <th data-priority="8">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($dataSuratKeluar as $surat)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}.</td>
-                                            <td>{{ $surat->nip_user }}</td>
-                                            <td>{{ $surat->no_surat }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($surat->tanggal_surat)->format('m/d/Y') }}</td>
-                                            <td>{{ $surat->perihal }}</td>
-                                            <td>{{ $surat->original_file_name }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($surat->created_at)->format('m/d/Y') }}</td>
-                                            <td class="flex justify-center space-x-2">
-                                                <!-- Hapus Button -->
-                                                <button onclick="openModalConfirm('{{ $surat->id }}')"
-                                                    class="p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition duration-300">
-                                                    🗑
-                                                </button>
+                                    <!-- Edit Button -->
+                                    <button
+                                        onclick="openModalEditSurat('{{ $surat->id }}', '{{ $surat->no_surat }}', '{{ $surat->tanggal_surat ? date('Y-m-d', strtotime($surat->tanggal_surat)) : '' }}', '{{ $surat->perihal }}', '{{ $surat->original_file_name }}')"
+                                        class="p-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white transition duration-300">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                        <path
+                                            d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />
+                                    </svg>
+                                    </button>
 
-                                                <!-- Edit Button -->
-                                                <button
-                                                    onclick="openModalEditSurat('{{ $surat->id }}', '{{ $surat->no_surat }}', '{{ $surat->tanggal_surat ? date('Y-m-d', strtotime($surat->tanggal_surat)) : '' }}', '{{ $surat->perihal }}', '{{ $surat->original_file_name }}')"
-                                                    class="p-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white transition duration-300">
-                                                    ✏️
-                                                </button>
-
-                                                <!-- Download Button -->
-                                                <a href="{{ route('downloadSurat', $surat->generated_file_name) }}">
-                                                    <button
-                                                        class="p-2 rounded-lg bg-green-500 hover:bg-green-600 text-white transition duration-300">
-                                                        ⬇️
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                                    <!-- Download Button -->
+                                    <a href="{{ route('downloadSurat', $surat->generated_file_name) }}">
+                                        <button
+                                            class="p-2 rounded-lg bg-green-500 hover:bg-green-600 text-white transition duration-300">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M12 15v-9" />
+                                                    <path d="M9 12l3 3l3-3" />
+                                                    <path d="M5 20h14" />
+                                                </svg>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
+            <!--/Card-->
         </div>
-        <!--/Card-->
     </div>
-    <!--/container-->
+
 
     {{-- MODAL CONFIRM DELETE --}}
     <div class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="confirmModal">
