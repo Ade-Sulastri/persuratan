@@ -20,11 +20,11 @@
                 <!-- NIP -->
                 <div>
                     <label for="nip" class="block text-sm font-medium text-gray-700">NIP</label>
-                    <input type="text" id="nip" name="nip" minlength="18" maxlength="18"
+                    <input type="number" id="nip" name="nip"
                         class="mt-1 w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 
                         @error('nip') border-red-500 @enderror"
                         placeholder="Masukkan NIP" 
-                        value="{{ $errors->has('nip') ? '' : old('nip') }}" required>
+                        value="{{ $errors->has('nip') ? '' : old('nip') }}" oninput="this.value = this.value.slice(0, 18);" required>
                     @error('nip')
                         <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
                     @enderror
@@ -54,9 +54,9 @@
                 <!-- Kode Satker -->
                 <div>
                     <label for="kode_satker" class="block text-sm font-medium text-gray-700">Kode Satker</label>
-                    <input type="text" id="kode_satker" name="kode_satker"
+                    <input type="number" id="kode_satker" name="kode_satker"
                         class="mt-1 w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Masukkan Kode Satker" value="{{ old('kode_satker') }}" required>
+                        placeholder="Masukkan Kode Satker" value="{{ old('kode_satker') }}" oninput="this.value = this.value.slice(0, 6);" required>
                 </div>
 
                 <!-- Password -->
