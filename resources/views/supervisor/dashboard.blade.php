@@ -1,5 +1,5 @@
 <x-supervisor.layout>
-    <main class="">
+    <main id="main-content" class="pt-16 md:ml-64 p-6 transition-all duration-300">
         <div class="grid mb-4 pb-10 px-8 mx-4">
             <div class="grid grid-cols-12 gap-6">
                 <div class="grid grid-cols-12 col-span-12 gap-6 xxl:col-span-9">

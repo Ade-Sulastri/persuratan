@@ -1,63 +1,60 @@
 <x-supervisor.layout>
-    <!--Container-->
-    <div class="container w-full   mx-auto px-5 mt-5">
-        <div class="mb-5">
-            <h1 class="text-xl font-semibold">Surat Masuk</h1>
-        </div>
-
-        <!--Card-->
-        <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white border">
-
-            <table id="example" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
-                <thead>
-                    <tr>
-                        <th data-priority="1">No</th>
-                        <th data-priority="2">Nip User</th>
-                        <th data-priority="3">No Surat</th>
-                        <th data-priority="4">Tanggal Surat</th>
-                        <th data-priority="5">Perihal</th>
-                        <th data-priority="6">File</th>
-                        <th data-priority="7">Tanggal Input Data</th>
-                        <th data-priority="8">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($dataSuratKeluar as $surat)
+    {{--  --}}
+    <div id="main-content" class="md:ml-64 w-full md:w-[calc(100%-16rem)] px-5 mt-20 transition-all duration-300">
+        <div class="container w-full mx-auto px-5 mt-24">
+            <!--Card table-->
+            <div id='recipients' class="p-8 mt-6 lg:mt-5 rounded shadow bg-white">
+                <h2 class="text-2xl font-bold mt-2 ml-2 mr-2 mb-7">Daftar Admin</h2>
+                <table id="example" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+                    <thead class="bg-gray-100 border-b border-gray-300">
                         <tr>
-                            <td>{{ $loop->iteration }}.</td>
-                            <td>{{ $surat->nip_user }}</td>
-                            <td>{{ $surat->no_surat }}</td>
-                            <td>{{ \Carbon\Carbon::parse($surat->tanggal_surat)->format('m/d/Y') }}</td>
-                            <td>{{ $surat->perihal }}</td>
-                            <td>{{ $surat->original_file_name }}</td>
-                            <td>{{ \Carbon\Carbon::parse($surat->created_at)->format('m/d/Y') }}</td>
-                            <td class="flex justify-center">
-                                <div class="flex space-x-2">
+                            <th data-priority="1">No</th>
+                            <th data-priority="2">Nip User</th>
+                            <th data-priority="3">No Surat</th>
+                            <th data-priority="4">Tanggal Surat</th>
+                            <th data-priority="5">Perihal</th>
+                            <th data-priority="6">File</th>
+                            <th data-priority="7">Tanggal Input Data</th>
+                            <th data-priority="8">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($dataSuratKeluar as $surat)
+                            <tr>
+                                <td>{{ $loop->iteration }}.</td>
+                                <td>{{ $surat->nip_user }}</td>
+                                <td>{{ $surat->no_surat }}</td>
+                                <td>{{ \Carbon\Carbon::parse($surat->tanggal_surat)->format('m/d/Y') }}</td>
+                                <td>{{ $surat->perihal }}</td>
+                                <td>{{ $surat->original_file_name }}</td>
+                                <td>{{ \Carbon\Carbon::parse($surat->created_at)->format('m/d/Y') }}</td>
+                                <td class="flex justify-center space-x-2">
                                     <!-- Hapus Button -->
                                     <button onclick="openModalConfirm('{{ $surat->id }}')"
                                         class="p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition duration-300">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
-                                            viewBox="0 0 24 24">
-                                            <g fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="1.5">
-                                                <path
-                                                    d="M5.47 6.015v12.514a2.72 2.72 0 0 0 2.721 2.721h7.618a2.72 2.72 0 0 0 2.72-2.72V6.014m-15.235.001h17.412" />
-                                                <path
-                                                    d="M8.735 6.015V4.382a1.63 1.63 0 0 1 1.633-1.632h3.264a1.63 1.63 0 0 1 1.633 1.632v1.633M9.824 16.992v-5.439m4.353 5.439v-5.439" />
-                                            </g>
-                                        </svg>
+                                        viewBox="0 0 24 24">
+                                        <g fill="none" stroke="currentColor" stroke-linecap="round"
+                                            stroke-linejoin="round" stroke-width="1.5">
+                                            <path
+                                                d="M5.47 6.015v12.514a2.72 2.72 0 0 0 2.721 2.721h7.618a2.72 2.72 0 0 0 2.72-2.72V6.014m-15.235.001h17.412" />
+                                            <path
+                                                d="M8.735 6.015V4.382a1.63 1.63 0 0 1 1.633-1.632h3.264a1.63 1.63 0 0 1 1.633 1.632v1.633M9.824 16.992v-5.439m4.353 5.439v-5.439" />
+                                        </g>
+                                    </svg>
                                     </button>
-                                    
+
                                     <!-- Edit Button -->
-                                    <button onclick="openModalEditSurat('{{ $surat->id }}', '{{ $surat->no_surat }}', '{{ $surat->tanggal_surat ? date('Y-m-d', strtotime($surat->tanggal_surat)) : '' }}', '{{ $surat->perihal }}', '{{ $surat->original_file_name }}')" type="button"
+                                    <button
+                                        onclick="openModalEditSurat('{{ $surat->id }}', '{{ $surat->no_surat }}', '{{ $surat->tanggal_surat ? date('Y-m-d', strtotime($surat->tanggal_surat)) : '' }}', '{{ $surat->perihal }}', '{{ $surat->original_file_name }}')"
                                         class="p-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white transition duration-300">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                                            <path
-                                                d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />
-                                        </svg>
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                        <path
+                                            d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />
+                                    </svg>
                                     </button>
 
                                     <!-- Download Button -->
@@ -65,24 +62,24 @@
                                         <button
                                             class="p-2 rounded-lg bg-green-500 hover:bg-green-600 text-white transition duration-300">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                <path d="M12 15v-9" />
-                                                <path d="M9 12l3 3l3-3" />
-                                                <path d="M5 20h14" />
-                                            </svg>
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M12 15v-9" />
+                                                    <path d="M9 12l3 3l3-3" />
+                                                    <path d="M5 20h14" />
+                                                </svg>
                                         </button>
                                     </a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!--/Card-->
         </div>
-        <!--/Card-->
     </div>
-    <!--/container-->
+
 
     {{-- MODAL CONFIRM DELETE --}}
     <div class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="confirmModal">
@@ -96,10 +93,15 @@
                     <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                         <div class="sm:flex sm:items-start">
                             <!-- Icon -->
-                            <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-yellow-200 sm:mx-0 sm:h-10 sm:w-10">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024"><path fill="black" d="M512 64a448 448 0 1 1 0 896a448 448 0 0 1 0-896m0 832a384 384 0 0 0 0-768a384 384 0 0 0 0 768m48-176a48 48 0 1 1-96 0a48 48 0 0 1 96 0m-48-464a32 32 0 0 1 32 32v288a32 32 0 0 1-64 0V288a32 32 0 0 1 32-32"/></svg>
+                            <div
+                                class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-yellow-200 sm:mx-0 sm:h-10 sm:w-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 1024 1024">
+                                    <path fill="black"
+                                        d="M512 64a448 448 0 1 1 0 896a448 448 0 0 1 0-896m0 832a384 384 0 0 0 0-768a384 384 0 0 0 0 768m48-176a48 48 0 1 1-96 0a48 48 0 0 1 96 0m-48-464a32 32 0 0 1 32 32v288a32 32 0 0 1-64 0V288a32 32 0 0 1 32-32" />
+                                </svg>
                             </div>
-                            
+
                             <!-- Modal content -->
                             <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                                 <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Confirm
@@ -160,7 +162,7 @@
                                 </div>
                                 <div class="col mt-3">
                                     <p class="text-sm text-gray-600 mb-2" id="current_file_display"></p>
-                                    <input type="file" name="file" id="modal_file"/>
+                                    <input type="file" name="file" id="modal_file" />
                                 </div>
                                 <div class="col text-right flex items-center justify-end mt-3">
                                     <div class="bg-gray-50 sm:flex sm:flex-row-reverse sm:px-2">
@@ -181,7 +183,6 @@
     </div>
 
     <script>
-
         function openModalEditSurat(id, no_surat, tanggal_surat, perihal, original_file_name) {
             document.getElementById('editSuratModal').classList.remove('hidden');
             document.getElementById('modal_no_surat').value = no_surat;
@@ -203,6 +204,12 @@
         function closeModalConfirm() {
             document.getElementById('confirmModal').classList.add('hidden');
         }
+        $(document).ready(function() {
+            $('#example').DataTable({
+                responsive: true,
+                scrollX: true
+            });
+        });
     </script>
 
     <!-- jQuery -->

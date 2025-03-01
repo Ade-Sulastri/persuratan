@@ -197,8 +197,9 @@
                             @csrf
                             <div class="col">
                                 <label for="nip">Nip User</label>
-                                <input id="nip" name="nip" maxlength="18" minlength="18" type="text"
+                                <input id="nip" name="nip" type="number"
                                     class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 @error('nip') border-red-500 @enderror"
+                                    oninput="this.value = this.value.slice(0, 18);"
                                     placeholder="Masukkan nip" value="{{ old('nip') }}" required />
                                 @error('nip')
                                     <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
